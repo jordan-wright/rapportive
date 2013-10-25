@@ -1,4 +1,4 @@
 rapportive.py
 =============
 
-Python library to automate Rapportive queries
+Python library to automate Rapportive queries.
