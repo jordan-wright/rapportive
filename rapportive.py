@@ -67,7 +67,7 @@ def ___process_email(email, output_file=None):
         summary = parse_summary(profile)
         print summary
         if output_file:
-            args.output_file.write(summary)
+            output_file.write(summary + '\n')
 
 def main():
     '''
