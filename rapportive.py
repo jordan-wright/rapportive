@@ -3,13 +3,15 @@
 # rapportive.py
 # Author: Jordan <jmwright798@gmail.com>
 
-import requests
-import json
-import logging
-import argparse
 import sys
+import json
 import random
 import string
+import logging
+import argparse
+
+# Requests, from python-requests.org
+import requests
 
 logging.basicConfig(format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                     datefmt='%m-%d %H:%M')
@@ -44,23 +46,22 @@ def parse_summary(profile):
     if 'contact' in profile and profile['contact']:
         person = profile['contact']
         if 'name' in person and person['name']:
-            summary += 'Name: ' + person['name'] + '\n'
+            summary += 'Name: %s\n' % person['name']
         if 'occupations' in person and person['occupations']:
             for occupation in person['occupations']:
                 if 'job_title' in occupation:
-                    summary += 'Position: ' + occupation['job_title'] + '\n'
+                    summary += 'Position: %s\n' % occupation['job_title']
                 if 'company' in occupation:
-                    summary += 'Company: ' + occupation['company'] + '\n'
+                    summary += 'Company: %s\n' % occupation['company']
         if 'memberships' in person and person['memberships']:
             for membership in person['memberships']:
                 if 'site_name' in membership and membership['site_name']:
-                    summary += '\t' + membership['site_name'] + ' - '
+                    summary += '\t%s - ' % membership['site_name']
                 if 'profile_url' in membership and membership['profile_url']:
                     summary += membership['profile_url'] + '\n'
     return summary
 
 def ___process_email(email, output_file=None):
-    if not output_file: output_file = None
     profile = request(email)
     if 'success' in profile and profile['success'] != 'nothing_useful':
         logger.info('Found match for ' + email)
@@ -68,6 +69,8 @@ def ___process_email(email, output_file=None):
         print summary
         if output_file:
             output_file.write(summary + '\n')
+    else:
+         print "No information found\n"
 
 def main():
     '''
@@ -81,7 +84,9 @@ def main():
     parser.add_argument('--email', '-e', help='Single email address to test')
     parser.add_argument('--verbose', '-v', action='store_true')
     args = parser.parse_args()
-    if args.verbose: logger.setLevel(logging.DEBUG)
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+    
     if args.email:
         ___process_email(args.email, args.output)
     else:
