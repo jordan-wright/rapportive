@@ -11,8 +11,6 @@ import sys
 import random
 import string
 
-logging.basicConfig(format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-                    datefmt='%m-%d %H:%M')
 logger = logging.getLogger('rapportive')
 logger.setLevel(logging.INFO)
 
@@ -76,6 +74,8 @@ def main():
             If the --jigsaw flag is set, format the output from the jigsaw.rb tool and check each
             address.
     '''
+    logging.basicConfig(format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                    datefmt='%m-%d %H:%M')
     parser = argparse.ArgumentParser(description='Check list of emails using Rapportive API')
     parser.add_argument('--output', '-o', type=argparse.FileType('w'), help='Output file to write results to')
     parser.add_argument('--email', '-e', help='Single email address to test')
