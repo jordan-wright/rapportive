@@ -56,6 +56,7 @@ class Profile(object):
                 (membership.get('site_name'), membership.get('profile_url'))
                 for membership in person.get('memberships', [])
             ]
+            self.success = person.get('success')
 
     def __str__(self):
         return dedent("""
@@ -85,15 +86,10 @@ def request(email):
         logger.debug('Session token: {0}'.format(session_token))
         url = URL.format(email)
         headers = {'X-Session-Token': session_token}
-        return Profile(requests.get(url, headers=headers).json().get('contact'))
+        response = requests.get(url, headers=headers).json()
+        if response.get('success') != 'nothing_useful':
+            return Profile(response.get('contact'))
     return {}
-
-
-def parse_summary(profile):
-    '''
-    rapportive_summary(profile): Returns a Profile object for an email address
-    '''
-    return Profile(profile.get('contact'))
 
 
 def ___process_email(email, output_file=None):
@@ -102,11 +98,9 @@ def ___process_email(email, output_file=None):
     if found
     """
     profile = request(email)
-    success = profile.get('success')
-    if success != 'nothing_useful':
+    if profile and profile.success != 'nothing_useful':
         logger.info('Found match for {0}'.format(email))
-        summary = parse_summary(profile)
-        print(summary)
+        print(profile)
         if output_file:
             output_file.write(summary + '\n')
     else:
