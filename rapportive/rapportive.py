@@ -28,9 +28,6 @@ import requests
 from docopt import docopt
 
 
-logging.basicConfig(
-    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-    datefmt='%m-%d %H:%M')
 # pylint: disable=C0103
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -120,6 +117,11 @@ def main():
             and check them with the Rapportive API
     '''
     options = docopt(__doc__, version="0.1.0")
+
+    logging.basicConfig(
+    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+    datefmt='%m-%d %H:%M')
+    
     if options["--verbose"]:
         logger.setLevel(logging.DEBUG)
 
