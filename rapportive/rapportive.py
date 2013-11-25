@@ -31,13 +31,16 @@ from docopt import docopt
 logging.basicConfig(
     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
     datefmt='%m-%d %H:%M')
+# pylint: disable=C0103
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+# pylint: enable=C0103
 
 STATUS_URL = 'https://rapportive.com/login_status?user_email={0}'
 URL = 'https://profiles.rapportive.com/contacts/email/{0}'
 
 
+# pylint: disable=R0903
 class Profile(object):
     """
     Profile object for collecting profile information before printing
