@@ -83,7 +83,7 @@ def request(email):
         logger.debug('Session token: {0}'.format(session_token))
         url = URL.format(email)
         headers = {'X-Session-Token': session_token}
-        return requests.get(url, headers=headers).json()
+        return Profile(requests.get(url, headers=headers).json().get('contact'))
     return {}
 
 
