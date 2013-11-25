@@ -9,11 +9,11 @@ Check list of emails using Rapportive API
 
 optional arguments:
   -h, --help            show this help message and exit
-  --output OUTPUT, -o OUTPUT
+  -o OUTPUT, --output OUTPUT
                         Output file to write results to
-  --email EMAIL, -e EMAIL
+  -e EMAIL, --email EMAIL
                         Single email address to test
-  --verbose, -v
+  -v, --verbose
 """
 
 # rapportive.py
