@@ -39,9 +39,11 @@ URL = 'https://profiles.rapportive.com/contacts/email/{0}'
 
 # pylint: disable=R0903
 class Profile(object):
+
     """
     Profile object for collecting profile information before printing
     """
+
     def __init__(self, person):
         if person:
             self.name = person.get('name')
@@ -119,9 +121,9 @@ def main():
     options = docopt(__doc__, version="0.1.0")
 
     logging.basicConfig(
-    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-    datefmt='%m-%d %H:%M')
-    
+        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        datefmt='%m-%d %H:%M')
+
     if options["--verbose"]:
         logger.setLevel(logging.DEBUG)
 
