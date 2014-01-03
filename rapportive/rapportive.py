@@ -82,7 +82,8 @@ def request(email):
     status_url = STATUS_URL.format(email)
     response = requests.get(status_url).json()
     session_token = response.get('session_token')
-    if 'error' in response: # fail gracefully if there is an error
+    # fail gracefully if there is an error
+    if 'error' in response:
         return response['error']
     elif response['status'] == 200 and session_token:
         logger.debug('Session token: {0}'.format(session_token))
